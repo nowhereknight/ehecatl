@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h1>¡Hola, {{ current_user.username }}!</h1>
+    {% if form %}
+    {{ wtf.quick_form(form) }}
+    <br>
+    {% endif %}
+    <table style="width:100%">
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Símbolo</th>
+          <th>Valores</th>
+          <th>Creado por:</th>
+          <th></th>
+          <th></th>
+        </tr>
+    {% for enterprise in enterprises %}
+    <tr>
+        <td>{{ enterprise.name }}</td>
+        <td>{{ enterprise.description }}</td>
+        <td>{{ enterprise.symbol }}</td>
+        <td>
+            {% for value in enterprise.values %}
+            {{ value.name }}<br>
+            {% endfor %}
+        </td>
+        <td>{{ enterprise.author.username }}</td>
+        <td><p><a class="btn btn-primary" href="{{ url_for('edit_enterprise', enterprise_name=enterprise.name) }}" role="button">Actualizar</a></p></td>
+        <td><a class="btn btn-danger" href="{{ url_for('delete_enterprise', enterprise_name=enterprise.name) }}" role="button">Borrar</a></td>
+      </tr>
+
+    {% endfor %}
+    </table>
+
+    <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Anterior
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Siguiente <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
