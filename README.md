@@ -1,8 +1,6 @@
-# Mulan
+# Proyecto Ehecatl
 
-Aplicación web basada en Flask diseñada para registrar, actualizar y eliminar registros de empresas que cotizan en la bolsa de valores de New York (o NYSE para sonar más fancy). Está nombrada gracias a mi amada gatita Mulán, nombrada por la comandante de las fuerzas armadas de China, Hua Mulán. Algunos dirán que también está nombrada por mi princesa favorita de Disney, pero eso es una coincidencia hasta que se demuestre lo contrario.
-
-Este proyecto fue desarrollado en conjunto con Pocahontas. Mientras que ahí se visualiza de mejor manera la información de la base de datos, aquí se inserta, elimina y actualiza.
+Aplicación web basada en Flask diseñada para realizar la administración de los cursos virtuales destinados a la comunidad sorda de México, de entre los cuáles de momento se encuentran LSM, español escrito y español hablado.
 
 Credit where credit is due, esta aplicación no habría sido remotamente posible sin el apoyo del [Flask Mega-Tutorial series](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) de Miguel Grinberg
 
@@ -44,13 +42,13 @@ Credit where credit is due, esta aplicación no habría sido remotamente posible
         - tests.py Tests que pueden ser ejecutados directamente por la terminal
 
 ### Estructura de la BD
-![](databases.png)
+![](database.png)
 
 ### Deployeo local
 
 Lo primero que se debe hacer es clonar el siguente repositorio. Asumiendo que ya está clonado, ingresamos a la carpeta, inicializamos un entorno virtual e instalamos todo lo especificado en requirements
 ```
-$ cd Mulan
+$ cd ehecatl
 $ python3 -m venv venv
 $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt
@@ -93,10 +91,6 @@ Una vez se termina de usar el entorno virtual es posible salir usando el comando
 ```
 (venv) $ deactivate
 ```
-
-### Diagrama del sistema
-El diagrama del sistema es bastante sencillo. Se trata de dos instancias web independientes de Heroku conectadas a una instancia de base de datos de RDS. Se observa que al compartir tanto Pocahontas como Mulán la misma BD, los usuarios son los mismos para ambas aplicaciones  
-![](sistema.png)
 
 ### Pruebas en la Base de Datos
 El servidor de base de datos en común está montado en RDS y es públicamente accesible (No la mejor estrategia de seguridad. Lo admito. Pero para esta etapa de desarrollo y pruebas servirá). Pueden acceder por medio de este comando recordando que la base de datos se llama `flask_database`

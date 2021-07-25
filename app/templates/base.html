@@ -1,55 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+   <!-- Basic -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- Mobile Metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!-- Site Metas -->
+   <title>Proyecto Ehécatl</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- site icon -->
+   <link rel="icon" href="{{url_for('static', filename='images/fevicon.png')}}" type="image/png" />
+   <!-- Bootstrap core CSS -->
+   <link href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
+   <!-- FontAwesome Icons core CSS -->
+   <link href="{{url_for('static', filename='css/font-awesome.min.css')}}" rel="stylesheet">
+   <!-- Custom animate styles for this template -->
+   <link href="{{url_for('static', filename='css/animate.css')}}" rel="stylesheet">
+   <!-- Custom styles for this template -->
+   <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
+   <!-- Responsive styles for this template -->
+   <link href="{{url_for('static', filename='css/responsive.css')}}" rel="stylesheet">
+   <!-- Colors for this template -->
+   <link href="{{url_for('static', filename='css/colors.css')}}" rel="stylesheet">
+   <!-- light box gallery -->
+   <link href="{{url_for('static', filename='css/ekko-lightbox.css')}}" rel="stylesheet">
+   <!--[if lt IE 9]>
+   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+   <![endif]-->
+   </head>
+   <body id="home_page" class="home_page">
+      <!-- header -->
+      <header class="header">
 
-{% extends 'bootstrap/base.html' %}
-
-{% block styles %}
-{{super()}}
-  <link rel="stylesheet" href="{{url_for('static', filename='mystyle.css')}}">
-{% endblock %}
-
-{% block title %}
-    {% if title %}{{ title }} - Mulán{% else %}Bienvenido a Mulán{% endif %}
-{% endblock %}
-
-{% block navbar %}
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">Mulán</a>
+        <div class="header_top_section">
+           <div class="container">
+              <div class="row">
+               <div class="col-lg-3">
+                  <div class="full">
+                     <div class="logo">
+                        <a href="index.html"><img src="{{url_for('static', filename='logo.png')}}" alt="#" width="100" height="100"/></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-9 site_information">
+                  <div class="full">
+                     <div class="main_menu">
+                        <nav class="navbar navbar-inverse navbar-toggleable-md">
+                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#cloapediamenu" aria-controls="cloapediamenu" aria-expanded="false" aria-label="Toggle navigation">
+                           <span class="float-left">Menu</span>
+                           <span class="float-right"><i class="fa fa-bars"></i> <i class="fa fa-close"></i></span>
+                           </button>
+                           <div class="collapse navbar-collapse justify-content-md-right" id="cloapediamenu">
+                            <ul class="nav navbar-nav">
+                                <li><a class="nav-link" href="{{ url_for('index') }}">Hogar</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                {% if current_user.is_anonymous %}
+                                <li><a class="nav-link" href="{{ url_for('login') }}">Ingresar</a></li>
+                                {% else %}
+                                <li><a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Perfil</a></li>
+                                <li><a class="nav-link" href="{{ url_for('logout') }}">Salir</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('index') }}">Hogar</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if current_user.is_anonymous %}
-                    <li><a href="{{ url_for('login') }}">Ingresar</a></li>
-                    {% else %}
-                    <li><a href="{{ url_for('user', username=current_user.username) }}">Perfil</a></li>
-                    <li><a href="{{ url_for('logout') }}">Salir</a></li>
-                    {% endif %}
-                </ul>
-            </div>
+           </div>
         </div>
-    </nav>
-{% endblock %}
+
+      </header>
+      <!-- end header -->
+      
 
 {% block content %}
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-info" role="alert">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-
-        {# application content needs to be provided in the app_content block #}
         {% block app_content %}{% endblock %}
-    </div>
 {% endblock %}
+
+  
+      <!-- footer -->
+      <footer class="footer layout_padding">
+        <div class="container">
+           <div class="row">
+
+              <div class="col-md-4 col-sm-12">
+                 <a href="index.html"><img class="img-responsive" src="{{url_for('static', filename='logo.png')}}" alt="#" /></a>
+                 <div class="footer_link_heading">
+                    <div class="footer_menu margin_top_30">
+                    <ul>
+                       <li><a href="tel:9876543210">55 9764 3242</a></li>
+                       <li><a href="#">prueba@gmail.com</a></li>
+                       <li><a href="#">Tangamandapio 133 Ciudad de México, México</a></li>
+                    </ul>
+                 </div>
+                 </div>
+              </div>
+              
+              <div class="col-md-8">
+                <div class="row">
+                   <div class="col-md-4 col-sm-12">
+                 <div class="footer_link_heading">
+                    <h3>NUESTROS CURSOS</h3>
+                 </div>
+                 <div class="footer_menu">
+                    <ul>
+                       <li><a href="#">Comienzan pronto</a></li>
+                       <li><a href="#">Recientemente agregado</a></li>
+                       <li><a href="#">Más visitados</a></li>
+                       <li><a href="#">Más pagados</a></li>
+                    </ul>
+                 </div>
+              </div>
+
+              <div class="col-md-4 col-sm-12">
+                 <div class="footer_link_heading">
+                    <h3>Categorías</h3>
+                 </div>
+                 <div class="footer_menu">
+                   <ul>
+                      <li><a href="#">LSM</a></li>
+                      <li><a href="#">Español</a></li>
+                      <li><a href="#">ASL</a></li>
+                      <li><a href="#">LSB</a></li>
+                   </ul>
+                 </div>
+              </div>
+              
+              <div class="col-md-4 col-sm-12">
+                 <div class="footer_link_heading">
+                    <h3>LINKS DE INTERÉS</h3>
+                 </div>
+                 <div class="footer_menu">
+                   <ul>
+                      <li><a href="#">FAQs</a></li>
+                      <li><a href="#">Historias de éxito</a></li>
+                      <li><a href="#">Tienda virtual</a></li>
+                      <li><a href="#">Política de privacidad</a></li>
+                      <li><a href="#">Búsqueda de contacto</a></li>
+                      <li><a href="#">Trabajos y vacantes</a></li>
+                   </ul>
+                 </div>
+              </div>
+                </div>
+              </div>
+              
+           </div>
+        </div>
+     </footer>
+     <div class="cpy">
+       <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <p>Copyright 2019. Todos los derechos reservados.<a href="https://html.design/"></a></p>
+            </div>
+          </div>
+       </div>
+     </div>
+     <!-- end footer -->
+     <!-- Core JavaScript
+        ================================================== -->
+     <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+     <script src="{{url_for('static', filename='js/tether.min.js')}}"></script>
+     <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+     <script src="{{url_for('static', filename='js/parallax.min.js')}}"></script>
+     <script src="{{url_for('static', filename='js/animate.js')}}"></script>
+     <script src="{{url_for('static', filename='js/ekko-lightbox.js')}}"></script>
+     <script src="{{url_for('static', filename='js/custom.js')}}"></script>
+  </body>
+</html>

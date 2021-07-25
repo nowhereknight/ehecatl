@@ -1,52 +1,181 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-    <h1>¡Hola, {{ current_user.username }}!</h1>
-    {% if form %}
-    {{ wtf.quick_form(form) }}
-    <br>
-    {% endif %}
-    <table style="width:100%">
-        <tr>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Símbolo</th>
-          <th>Valores</th>
-          <th>Creado por:</th>
-          <th></th>
-          <th></th>
-        </tr>
-    {% for enterprise in enterprises %}
-    <tr>
-        <td>{{ enterprise.name }}</td>
-        <td>{{ enterprise.description }}</td>
-        <td>{{ enterprise.symbol }}</td>
-        <td>
-            {% for value in enterprise.values %}
-            {{ value.name }}<br>
-            {% endfor %}
-        </td>
-        <td>{{ enterprise.author.username }}</td>
-        <td><p><a class="btn btn-primary" href="{{ url_for('edit_enterprise', enterprise_name=enterprise.name) }}" role="button">Actualizar</a></p></td>
-        <td><a class="btn btn-danger" href="{{ url_for('delete_enterprise', enterprise_name=enterprise.name) }}" role="button">Borrar</a></td>
-      </tr>
+      
+      <!-- section -->
+      <section class="main_full banner_section_top">
+        <div class="container-fluid">
+          <div class="row">
+             <div class="full">
+                  <div class="slider_banner">
+                    <img class="img-responsive" src="{{url_for('static', filename='images/slider_img.jpg')}}" alt="#" />
+                      <div class="slide_cont">
+                        <div class="slider_cont_inner">
+                          <h3>Poyecto ehēcatl</h3>
+                        <p>Dónde el aprendizaje comienza</p>
+                        <a class="blue_bt" href="#">Saber más</a>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </section>
+      <!-- end section -->
+    
+     <!-- about section -->
+      <section class="layout_padding section about_dottat">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12 text_align_center">
+                  <div class="full heading_s1">
+                     <h2>Acerca de</h2>
+                  </div>
+                  <div class="full">
+                     <p class="large">Ehécatl (en náhuatl: ehēcatl ‘el viento’‘ehecatl, viento’) 
+                         en la mitología mexica y para otras culturas de Mesoamérica, era el dios del viento. 
+                         Usualmente se le interpreta como una de las manifestaciones de Quetzalcōātl, la serpiente emplumada, 
+                         tomando el nombre de Ehécatl-Quetzalcoatl, apareciendo en el aliento de los seres vivos. En Proyecto 
+                         Ehécatl creemos en empoderar a la gente a través del poder del habla</p>
+                  </div>
+               </div>
+               <div class="col-md-12">
+                  <div class="about_img margin_top_30  text_align_center">
+                     <img src="{{url_for('static', filename='images/ab_img.jpg')}}" alt="#" />
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end about section -->
 
-    {% endfor %}
-    </table>
+      <!-- section -->
+      <section class="layout_padding section">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12 text_align_center">
+                  <div class="full heading_s1">
+                     <h2>Nuestros cursos</h2>
+                  </div>
+                  <div class="full">
+                     <p class="large">Estos son los tres cursos más demandados de nuestra academia</p>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
 
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> Anterior
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Siguiente <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+              <div class="col-md-4 text_align_center">
+                 <div class="cours">
+                   <img class="img-responsive" src="{{url_for('static', filename='images/cour1.png')}}" alt="#" />
+                 </div>
+                 <h3>LSM</h3>
+                 <p>En este curso aprenderás desde lo básico hasta lo avanzado de la Lengua de Señas Mexicana</p>
+              </div>  
+
+              <div class="col-md-4 text_align_center">
+                 <div class="cours">
+                   <img class="img-responsive" src="{{url_for('static', filename='images/cour2.png')}}" alt="#" />
+                 </div>
+                 <h3>Español</h3>
+                 <p>Es este curso aprenderás todo lo referente a la gramática española y serás capaz de comunicarte tanto por medio hablado como escrito</p>
+              </div> 
+
+              <div class="col-md-4 text_align_center">
+                 <div class="cours">
+                   <img class="img-responsive" src="{{url_for('static', filename='images/cour3.jpg')}}" alt="#" />
+                 </div>
+                 <h3>LSB</h3>
+                 <p>En este curso aprenderás desde lo básico hasta lo avanzado de la Lengua de Señas Brasileña</p>
+              </div> 
+
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full center">
+                      <a class="blue_bt" href="#">Leer más</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end section -->
+
+      <!-- section -->
+      <section class="layout_padding section">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-12 text_align_center">
+                  <div class="full heading_s1">
+                     <h2>Nuestros horarios</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 cours_timging_bg">
+                 <div class="container">
+                    <div class="time_table">
+                          <ul><li>Lunes</li><li>8 Am - 6 Pm</li></ul>
+                          <ul><li>Martes</li><li>9 Am - 5 Pm</li></ul>
+                          <ul><li>Miércoles</li><li>10 Am - 8 Pm</li></ul>
+                          <ul><li>Jueves</li><li>8  Am - 6 Pm</li></ul>
+                          <ul><li>Viernes</li><li>6 Am - 4 Pm</li></ul>
+                          <ul><li>Sábado</li><li>9 Am - 5 Pm</li></ul>
+                       </div>
+                 </div>        
+              </div> 
+            </div>
+         </div>
+      </section>
+      <!-- end section -->
+
+      <!-- section -->
+      <section class="layout_padding section">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-12 text_align_center">
+                  <div class="full heading_s1">
+                     <h2>Nuestras historias de éxito</h2>
+                  </div>
+                  <div class="full">
+                     <p class="large">Contamos con horas de experiencia y hemos forjado a estos líderes del mañana</p>
+                  </div>
+               </div>
+               <div class="col-md-12 testimonial">
+                  <div class="full text_align_center">
+                     <img src="{{url_for('static', filename='images/tertimonial.jpg')}}" alt="#" width="200" height="200"/>
+                     <h3><span class="theme_color_text">Jonathan Reyes</span><br><small>Estudiante</small></h3>
+                  </div>
+                  <div class="full margin_top_30 text_align_center">
+                    <h4>Ser sordo no significa ser sordo</h4>
+                    <p>Estar en esta academia me ayudó a entender que las barreras están para ser borradas</p>
+                  </div>
+               </div>
+            </div>
+        </div>
+      </section>
+      <!-- end section -->
+
+    
+      <!-- section -->
+      <section class="section blue_pattern_bg" style="background-color: #3b3bff;">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-6">
+                  <div class="full">
+                     <h4>Suscríbete</h4>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                 <div class="form_subribe">
+                    <form>
+                       <input type="email" name="email" placeholder="Ingresa tu email" />
+                       <button>Suscribirse</button>
+                    </form>
+                 </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end section -->
 {% endblock %}
+   
