@@ -19,7 +19,6 @@ def before_request():
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
-@login_required
 def index():
     """Función que maneja la lógica de la inserción de empresas tanto en 'enterprises'
         como en 'values'enterprises', así como el despliegue de páginas y la paginación de las mismas
@@ -27,33 +26,10 @@ def index():
     :return: Redireccionamiento a página principal
     :rtype: None
     """
-    form = EnterpriseForm()
-    if form.validate_on_submit():
-        enterprise = Enterprise(
-            name=form.name.data, description=form.description.data, symbol=form.symbol.data, author=current_user
-        )
-        for value_name in form.values.data:
-            value = Value.query.filter_by(name=value_name).first()
-            if not value:
-                value = Value(name=value_name)
-            enterprise.values.append(value)
-        db.session.add(enterprise)
-        db.session.commit()
-
-        flash("Tu empresa ha sido creada con éxito")
-        return redirect(url_for("index"))
-
-    page = request.args.get("page", 1, type=int)
-    enterprises = current_user.get_all_enterprises().paginate(page, app.config["ENTERPRISES_PER_PAGE"], False)
-    next_url = url_for("index", page=enterprises.next_num) if enterprises.has_next else None
-    prev_url = url_for("index", page=enterprises.prev_num) if enterprises.has_prev else None
+    
     return render_template(
         "index.html",
         title="Home",
-        form=form,
-        enterprises=enterprises.items,
-        next_url=next_url,
-        prev_url=prev_url,
     )
 
 
@@ -136,51 +112,7 @@ def edit_profile():
     return render_template("edit_profile.html", title="Editar Perfil", form=form)
 
 
-@app.route("/edit_enterprise/<enterprise_name>", methods=["GET", "POST"])
+@app.route("/main", methods=["GET", "POST"])
 @login_required
-def edit_enterprise(enterprise_name: str):
-    """Función que permite editar empresas y manejar la lógica de las peticiones
-
-
-    :param enterprise_name: enterprise_name Nombre de la empresa. Al ser único basta para
-            buscar en la DB sin tener que usar el uuid
-    :type enterprise_name: str
-    :return: Redireccionamiento a página de edición de empresa
-    :rtype: None
-    """
-    app.logger.error(enterprise_name)
-    current_enterprise = Enterprise.query.filter_by(name=enterprise_name).first()
-    form = EditEnterpriseForm(current_enterprise.name, current_enterprise.symbol)
-    if form.validate_on_submit():
-        current_enterprise.name = form.name.data
-        current_enterprise.description = form.description.data
-        current_enterprise.symbol = form.symbol.data
-        db.session.commit()
-        flash("Tus cambios han sido registrados con éxito.")
-        return redirect(url_for("index"))
-    elif request.method == "GET":
-        form.name.data = current_enterprise.name
-        form.description.data = current_enterprise.description
-        form.symbol.data = current_enterprise.symbol
-
-    return render_template("edit_enterprise.html", title="Editar Empresa", form=form)
-
-
-@app.route("/delete_enterprise/<enterprise_name>", methods=["GET", "POST"])
-@login_required
-def delete_enterprise(enterprise_name: str):
-    """Función que permite eliminar empresas y sus registros en
-    'values_enterprises' a la vez
-
-    :params: enterprise_name Nombre de la empresa. Al ser único basta para
-            buscar en la DB sin tener que usar el uuid
-    :return: redirect a página principal
-    :rtype: None
-    """
-    app.logger.error(enterprise_name)
-    current_enterprise = Enterprise.query.filter_by(name=enterprise_name).first()
-    db.session.delete(current_enterprise)
-    db.session.commit()
-    flash("La empresa ha sido borrada con éxito")
-
-    return redirect(url_for("index"))
+def main():
+    return render_template("main.html", title="Página Principal")
